@@ -1,12 +1,12 @@
 {
-  "name": "갓생살기",
-  "short_name": "PWA",
+  "name": "Wake Up",
+  "short_name": "Wake Up",
   "theme_color": "#ffdb00",
   "background_color": "#ffdb00",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",
-  "start_url": "/wake-up-morning.vercel.app",
+  "start_url": "https://wake-up-morning.vercel.app/",
   "icons": [
     {
       "src": "icons/icon-48x48.png",
