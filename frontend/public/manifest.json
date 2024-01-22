@@ -1,8 +1,8 @@
 {
   "name": "Wake Up",
   "short_name": "Wake Up",
-  "theme_color": "#ffdb00",
-  "background_color": "#ffdb00",
+  "theme_color": "#f6f6f6",
+  "background_color": "#f6f6f6",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",
