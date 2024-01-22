@@ -9,7 +9,7 @@ import { logout } from "@/app/_store/modules/userSlice";
 import { useAppSelector } from "@/app/_store/store";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 
 export default function Main() {
@@ -44,6 +44,7 @@ export default function Main() {
         color="gold"
         onClick={() => {
           console.log(data);
+          router.push("/camera");
         }}
       >
         출석하기
