@@ -15,6 +15,7 @@ export default function Camera() {
     handleCapture,
     handleRetake,
     handleDownload,
+    toggleCamera,
   } = useCamera();
   const router = useRouter();
 
@@ -52,7 +53,12 @@ export default function Camera() {
               />
             )}
           </div>
-          <IconButton name="Refresh" size={35} onClick={handleRetake} />
+          {!isCaptured && (
+            <IconButton name="Change" size={35} onClick={toggleCamera} />
+          )}
+          {isCaptured && (
+            <IconButton name="Refresh" size={35} onClick={handleRetake} />
+          )}
         </div>
       </div>
     </Wrapper>
