@@ -7,6 +7,7 @@ export const useCamera = () => {
   const streamRef = useRef<MediaStream | null>(null);
   const [isCaptured, setCaptured] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
+  const [cameraType, setCameraType] = useState("user");
 
   const handleCapture = (dateString: string, timeString: string) => {
     if (videoRef.current && canvasRef.current) {
@@ -31,7 +32,9 @@ export const useCamera = () => {
 
   const handleCameraAccess = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: cameraType },
+      });
       streamRef.current = stream; // 스트림을 ref에 저장
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
@@ -98,7 +101,11 @@ export const useCamera = () => {
         streamRef.current.getTracks().forEach(track => track.stop());
       }
     };
-  }, []);
+  }, [cameraType]);
+
+  const toggleCamera = () => {
+    setCameraType(cameraType === "user" ? "environment" : "user");
+  };
 
   return {
     videoRef,
@@ -108,5 +115,6 @@ export const useCamera = () => {
     handleCapture,
     handleRetake,
     handleDownload,
+    toggleCamera,
   };
 };
