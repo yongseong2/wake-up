@@ -1,61 +1,60 @@
 "use client";
+import IconButton from "@/app/_components/IconButton";
 import { Wrapper } from "@/app/_components/Wrapper";
-import { useEffect, useRef } from "react";
+import { useCamera } from "@/app/_hooks/useCamera";
+import { useTimer } from "@/app/_hooks/useTimer";
+import { useRouter } from "next/navigation";
 
 export default function Camera() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  const handleCapture = () => {
-    if (videoRef.current && canvasRef.current) {
-      const context = canvasRef.current.getContext("2d");
-      if (context) {
-        const width = videoRef.current.videoWidth;
-        const height = videoRef.current.videoHeight;
-        canvasRef.current.width = width;
-        canvasRef.current.height = height;
-        context.drawImage(videoRef.current, 0, 0, width, height);
-        console.log(canvasRef.current.toDataURL());
-      }
-    }
-  };
-
-  const handleCameraAccess = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-      }
-    } catch (error) {
-      console.error("Error accessing the camera: ", error);
-
-      // 권한이 거부되었을 때 사용자에게 알림
-      if (error.name === "NotAllowedError") {
-        alert(
-          "카메라 접근이 거부되었습니다. 설정에서 카메라 접근을 허용해주세요.",
-        );
-        // 필요하다면 여기에 권한 재요청 로직을 구현
-      } else {
-        // 다른 오류에 대한 처리
-        setTimeout(handleCameraAccess, 3000);
-      }
-    }
-  };
-
-  useEffect(() => {
-    handleCameraAccess();
-  }, []);
-
-  console.log(videoRef);
+  const { dateString, timeString } = useTimer(7, 0);
+  const {
+    videoRef,
+    canvasRef,
+    isCaptured,
+    isCameraReady,
+    handleCapture,
+    handleRetake,
+    handleDownload,
+  } = useCamera();
+  const router = useRouter();
 
   return (
-    <Wrapper>
-      <video ref={videoRef} autoPlay style={{ width: "100%" }}></video>
-      <canvas
-        ref={canvasRef}
-        style={{ width: "100%", height: "200px" }}
-      ></canvas>
-      <button onClick={handleCapture}>캡처</button>
+    <Wrapper style="">
+      <div className="w-full max-h-96">
+        {!isCaptured && (
+          <video ref={videoRef} autoPlay className="w-full max-h-96" />
+        )}
+        <canvas
+          ref={canvasRef}
+          className="w-full max-h-96"
+          style={{ display: isCaptured ? "block" : "none" }}
+        />
+      </div>
+      <div className="flex flex-1 items-end py-24">
+        {/* <div className="text-lg">{dateString + " " + timeString}</div> */}
+        <div className="flex items-center gap-10">
+          <IconButton name="Back" size={30} onClick={() => router.back()} />
+          <div className="border-gray-600 border-2 rounded-full flex items-center justify-center p-2">
+            {!isCaptured && (
+              <IconButton
+                name="Camera"
+                size={60}
+                onClick={() => handleCapture(dateString, timeString)}
+                disabled={!isCameraReady}
+              />
+            )}
+            {isCaptured && (
+              <IconButton
+                name="Download"
+                size={60}
+                onClick={() => handleDownload(dateString)}
+                disabled={!isCameraReady}
+              />
+            )}
+          </div>
+          <IconButton name="Refresh" size={35} onClick={handleRetake} />
+        </div>
+      </div>
     </Wrapper>
   );
 }
