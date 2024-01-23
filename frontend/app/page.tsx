@@ -4,6 +4,7 @@ import { LoginButton } from "./_components/LoginButton";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "./_store/store";
 import { useEffect } from "react";
+import { Wrapper } from "./_components/Wrapper";
 
 export default function Login() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function Login() {
   }, [isLogined, router]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between py-64 bg-gold">
+    <Wrapper style="justify-between py-64 bg-gold">
       <Image
         src="/icons/icon-192x192.png"
         width={192}
@@ -33,6 +34,6 @@ export default function Login() {
         <LoginButton password="1234" href="/main" profile="동현" />
         <LoginButton password="1234" href="/main" profile="예지" />
       </div>
-    </main>
+    </Wrapper>
   );
 }
