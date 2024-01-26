@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useTimer } from "../_hooks/useTimer";
+import { useTimer } from "../../_hooks/useTimer";
 
 export function CurrentTime() {
   const { dateString, amPm, timeString } = useTimer(7, 0);

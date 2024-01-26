@@ -1,4 +1,4 @@
-import { useTimer } from "../_hooks/useTimer";
+import { useTimer } from "../../_hooks/useTimer";
 
 export function DueTime() {
   const { timeLeft } = useTimer(7, 0);

@@ -1,6 +1,6 @@
 "use client";
-import IconButton from "@/app/_components/IconButton";
-import { Wrapper } from "@/app/_components/Wrapper";
+import IconButton from "@/app/_components/common/IconButton";
+import { Wrapper } from "@/app/_components/common/Wrapper";
 import { useCamera } from "@/app/_hooks/useCamera";
 import { useTimer } from "@/app/_hooks/useTimer";
 import { useRouter } from "next/navigation";
@@ -32,7 +32,6 @@ export default function Camera() {
         />
       </div>
       <div className="flex flex-1 items-end py-24">
-        {/* <div className="text-lg">{dateString + " " + timeString}</div> */}
         <div className="flex items-center gap-10">
           <IconButton name="Back" size={30} onClick={() => router.back()} />
           <div className="border-gray-600 border-2 rounded-full flex items-center justify-center p-2">

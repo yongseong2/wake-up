@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes } from "react";
-import * as Icons from "@/app/asset/icons/iconIndex";
+import * as Icons from "@/app/_asset/icons/iconIndex";
 import Icon from "./Icon";
 
 interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

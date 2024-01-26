@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Button } from "./Button";
+import { Button } from "./common/Button";
 import { useAppDispatch, useAppSelector } from "../_store/store";
 import { setIsLogined, setUserInfo } from "../_store/modules/userSlice";
 
