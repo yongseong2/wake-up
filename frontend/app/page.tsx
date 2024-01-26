@@ -4,7 +4,7 @@ import { LoginButton } from "./_components/LoginButton";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "./_store/store";
 import { useEffect } from "react";
-import { Wrapper } from "./_components/Wrapper";
+import { Wrapper } from "./_components/common/Wrapper";
 
 export default function Login() {
   const router = useRouter();
