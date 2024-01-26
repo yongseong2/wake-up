@@ -1,6 +1,6 @@
 "use client";
 import IconButton from "@/app/_components/common/IconButton";
-import { Wrapper } from "@/app/_components/Wrapper";
+import { Wrapper } from "@/app/_components/common/Wrapper";
 import { useCamera } from "@/app/_hooks/useCamera";
 import { useTimer } from "@/app/_hooks/useTimer";
 import { useRouter } from "next/navigation";
