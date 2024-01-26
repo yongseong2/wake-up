@@ -1,15 +1,15 @@
 "use client";
-import { Button } from "@/app/_components/Button";
-import { CurrentTime } from "@/app/_components/CurrentTime";
-import DueTime from "@/app/_components/DueTime";
-import IconButton from "@/app/_components/IconButton";
+import { Button } from "@/app/_components/common/Button";
+import { CurrentTime } from "@/app/_components/main/CurrentTime";
+import DueTime from "@/app/_components/main/DueTime";
+import IconButton from "@/app/_components/common/IconButton";
 import { PenaltyList } from "@/app/_components/PenaltyList";
 import { Wrapper } from "@/app/_components/Wrapper";
 import { useTimer } from "@/app/_hooks/useTimer";
 import { logout } from "@/app/_store/modules/userSlice";
 import { useAppSelector } from "@/app/_store/store";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 export default function Main() {
