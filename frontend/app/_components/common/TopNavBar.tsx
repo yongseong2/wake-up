@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import IconButton from "./IconButton";
 import { useDispatch } from "react-redux";
 import { logout } from "@/app/_store/modules/userSlice";
