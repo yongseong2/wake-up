@@ -29,24 +29,14 @@ export default function Main() {
       <CurrentTime />
       <PenaltyList />
       <DueTime />
-      <div className="flex flex-col gap-3">
-        <Button
-          color="gold"
-          onClick={() => {
-            console.log(data);
-          }}
-        >
-          출석하기
-        </Button>
-        <Button
-          color="emerald"
-          onClick={() => {
-            router.push("/camera");
-          }}
-        >
-          카메라인증
-        </Button>
-      </div>
+      <Button
+        color="gold"
+        onClick={() => {
+          console.log(data);
+        }}
+      >
+        출석하기
+      </Button>
     </Wrapper>
   );
 }
