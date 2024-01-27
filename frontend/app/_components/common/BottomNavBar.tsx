@@ -2,13 +2,16 @@ import { useRouter } from "next/navigation";
 import * as Icons from "@/app/_asset/icons/iconIndex";
 import Icon from "./Icon";
 
+interface Props {
+  bottomNavSpace: string;
+}
 interface ButtonObject {
   name: keyof typeof Icons;
   title: string;
   func: () => void;
 }
 
-export function BottomNavBar() {
+export function BottomNavBar({ bottomNavSpace }: Props) {
   const router = useRouter();
   const bottomMenu: ButtonObject[] = [
     {
@@ -19,17 +22,21 @@ export function BottomNavBar() {
     {
       name: "Profile",
       title: "마이페이지",
-      func: () => router.push("/"),
+      func: () => router.push("/main"),
     },
   ];
   return (
     <div
       className="bg-gold w-full shadow-top-shadow rounded-t-md flex items-center justify-around"
-      style={{ height: "9vh" }}
+      style={{ height: bottomNavSpace }}
     >
       {bottomMenu.map(item => {
         return (
-          <button key={item.name} className="w-fit" onClick={() => item.func()}>
+          <button
+            key={item.name}
+            className="w-fit hover:opacity-60 transition-opacity duration-300"
+            onClick={() => item.func()}
+          >
             <div className="flex items-center justify-center">
               <Icon name={item.name} />
             </div>

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode, useMemo } from "react";
 import { BottomNavBar } from "./BottomNavBar";
 import { TopNavBar } from "./TopNavBar";
 import { usePathname } from "next/navigation";
@@ -17,15 +17,23 @@ type NavConfigMap = {
   [path: string]: NavConfig;
 };
 
-export function Wrapper({
+const Wrapper = ({
   style = "justify-between py-20 px-10",
   children,
-}: Props) {
+}: Props) => {
   const path = usePathname();
-  const noneSpace = "0vh";
-  const allSpace = "16vh";
-  const topNavSpace = "7vh";
-  const BottomNavSpace = "8vh";
+  const { topNavSpace, bottomNavSpace, allSpace, noneSpace } = useMemo(() => {
+    const noneSpace = "0vh";
+    const topSpace = "7vh";
+    const bottomSpace = "7.5vh";
+    const totalSpace = `${parseFloat(topSpace) + parseFloat(bottomSpace)}vh`;
+    return {
+      topNavSpace: topSpace,
+      bottomNavSpace: bottomSpace,
+      allSpace: totalSpace,
+      noneSpace: noneSpace,
+    };
+  }, []);
 
   const navConfig: NavConfigMap = {
     "/": { showTopNav: false, showBottomNav: false, navBarHeight: noneSpace },
@@ -48,14 +56,16 @@ export function Wrapper({
 
   return (
     <>
-      {showTopNav && <TopNavBar />}
+      {showTopNav && <TopNavBar topNavSpace={topNavSpace} path={path} />}
       <div
         className={`flex flex-col items-center ${style}`}
         style={{ minHeight: `calc(100vh - ${navBarHeight})` }}
       >
         {children}
       </div>
-      {showBottomNav && <BottomNavBar />}
+      {showBottomNav && <BottomNavBar bottomNavSpace={bottomNavSpace} />}
     </>
   );
-}
+};
+
+export default React.memo(Wrapper);
