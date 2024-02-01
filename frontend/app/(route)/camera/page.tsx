@@ -1,12 +1,12 @@
 "use client";
 import IconButton from "@/app/_components/common/IconButton";
+import KakaoShareButton from "@/app/_components/common/KaKaoShareButton";
 import Wrapper from "@/app/_components/common/Wrapper";
 import { useCamera } from "@/app/_hooks/useCamera";
-import { useTimer } from "@/app/_hooks/useTimer";
+
 import { useRouter } from "next/navigation";
 
 export default function Camera() {
-  const { dateString, timeString } = useTimer(7, 0);
   const {
     videoRef,
     canvasRef,
@@ -21,14 +21,19 @@ export default function Camera() {
 
   return (
     <Wrapper style="">
-      <div className="w-full max-h-96">
+      <div>
         {!isCaptured && (
-          <video ref={videoRef} autoPlay className="w-full max-h-96" />
+          <video
+            style={{ width: "400px", height: "300px" }}
+            ref={videoRef}
+            autoPlay
+          />
         )}
         <canvas
           ref={canvasRef}
-          className="w-full max-h-96"
-          style={{ display: isCaptured ? "block" : "none" }}
+          style={{
+            display: isCaptured ? "block" : "none",
+          }}
         />
       </div>
       <div className="flex flex-1 items-end py-24">
@@ -39,7 +44,7 @@ export default function Camera() {
               <IconButton
                 name="Camera"
                 size={60}
-                onClick={() => handleCapture(dateString, timeString)}
+                onClick={() => handleCapture()}
                 disabled={!isCameraReady}
               />
             )}
@@ -47,7 +52,7 @@ export default function Camera() {
               <IconButton
                 name="Download"
                 size={60}
-                onClick={() => handleDownload(dateString)}
+                onClick={() => handleDownload()}
                 disabled={!isCameraReady}
               />
             )}

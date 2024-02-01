@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { useTimer } from "./useTimer";
+import { getCapturedTime } from "../_util/getCapturedTime";
 
 export const useCamera = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -9,21 +9,21 @@ export const useCamera = () => {
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [cameraType, setCameraType] = useState("user");
 
-  const handleCapture = (dateString: string, timeString: string) => {
+  const handleCapture = () => {
     if (videoRef.current && canvasRef.current) {
       const context = canvasRef.current.getContext("2d");
-
       if (context) {
-        const width = videoRef.current.videoWidth;
-        const height = videoRef.current.videoHeight;
+        const width = 400;
+        const height = 300;
         canvasRef.current.width = width;
         canvasRef.current.height = height;
         context.drawImage(videoRef.current, 0, 0, width, height);
-
         context.font = "30px Arial";
         context.fillStyle = "white";
-        context.textAlign = "center";
-        context.fillText(`${dateString + " " + timeString}`, width / 2, 50);
+        context.textAlign = "left";
+        context.textBaseline = "bottom";
+        const { dateString, timeString } = getCapturedTime();
+        context.fillText(`${dateString + " " + timeString}`, 10, height - 10);
         console.log(canvasRef.current.toDataURL());
         setCaptured(true);
       }
@@ -73,12 +73,13 @@ export const useCamera = () => {
     handleCameraAccess();
   };
 
-  const handleDownload = (dateString: string) => {
+  const handleDownload = () => {
     if (canvasRef.current) {
       const image = canvasRef.current
         .toDataURL("image/png")
         .replace("image/png", "image/octet-stream");
       const link = document.createElement("a");
+      const { dateString } = getCapturedTime();
       link.download = `captured-image_${dateString}.png`;
       link.href = image;
       link.click();
