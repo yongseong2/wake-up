@@ -11,7 +11,7 @@ export function Button({ children, color, className, ...props }: Props) {
   return (
     <button
       {...props}
-      className={`w-32 font-bold  border px-4 py-2 rounded-3xl hover:opacity-60 ${BUTTON_VARIANTS[color]} ${className || ""}`}
+      className={`w-32 font-bold  border px-4 py-2 rounded-3xl hover:opacity-60 transition-opacity duration-300 ${BUTTON_VARIANTS[color]} ${className || ""}`}
     >
       {children}
     </button>

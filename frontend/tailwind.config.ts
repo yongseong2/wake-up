@@ -24,6 +24,9 @@ const config: Config = {
         "top-shadow": "0 -5px 5px -5px rgba(0, 0, 0, 0.25)",
         "bottom-shadow": "0 5px 5px -5px rgba(0, 0, 0, 0.25)",
       },
+      fontSize: {
+        xxs: "10px",
+      },
     },
   },
   plugins: [],
