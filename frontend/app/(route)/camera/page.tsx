@@ -21,16 +21,13 @@ export default function Camera() {
 
   return (
     <Wrapper style="">
-      <div>
+      <div className="w-full max-h-96">
         {!isCaptured && (
-          <video
-            style={{ width: "400px", height: "300px" }}
-            ref={videoRef}
-            autoPlay
-          />
+          <video className="w-full max-h-96" ref={videoRef} autoPlay />
         )}
         <canvas
           ref={canvasRef}
+          className="w-full max-h-96"
           style={{
             display: isCaptured ? "block" : "none",
           }}

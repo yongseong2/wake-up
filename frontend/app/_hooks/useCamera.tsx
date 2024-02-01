@@ -13,8 +13,8 @@ export const useCamera = () => {
     if (videoRef.current && canvasRef.current) {
       const context = canvasRef.current.getContext("2d");
       if (context) {
-        const width = 400;
-        const height = 300;
+        const width = videoRef.current.videoWidth;
+        const height = videoRef.current.videoHeight;
         canvasRef.current.width = width;
         canvasRef.current.height = height;
         context.drawImage(videoRef.current, 0, 0, width, height);
