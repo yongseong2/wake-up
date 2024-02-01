@@ -2,8 +2,14 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ReduxProvider } from "./_store/provider";
-
+import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
+
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 
 export const metadata: Metadata = {
   title: "Wake Up",
@@ -16,11 +22,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <link rel="manifest" href="/manifest.json" />
       <body className={inter.className}>
         <ReduxProvider>{children}</ReduxProvider>
       </body>
+      <Script src="https://developers.kakao.com/sdk/js/kakao.js" />
     </html>
   );
 }
