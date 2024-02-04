@@ -11,10 +11,5 @@ export function getCapturedTime() {
     minute: "2-digit",
     second: "2-digit",
   });
-  return { dateString, timeString };
-}
-
-export function getCurrentTime() {
-  const currentTime = new Date();
-  return currentTime;
+  return { currentTime, dateString, timeString };
 }

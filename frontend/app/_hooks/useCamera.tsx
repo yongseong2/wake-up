@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { getCapturedTime, getCurrentTime } from "../_util/getTime";
+import { getCapturedTime } from "../_util/getTime";
 import { drawImage } from "../_util/drawImage";
 import { useAppSelector } from "../_store/store";
 
@@ -12,10 +12,10 @@ export const useCamera = () => {
   const [cameraType, setCameraType] = useState("environment");
   const [imageSrc, setImageSrc] = useState("");
   const { memberName } = useAppSelector(state => state.user);
-  const data = { memberName, time: getCurrentTime() };
 
   const handleCapture = () => {
     const imageDataUrl = drawImage(videoRef, canvasRef);
+    const data = { memberName, time: getCapturedTime().currentTime };
     if (imageDataUrl) {
       setImageSrc(imageDataUrl);
       setCaptured(true);
@@ -42,7 +42,6 @@ export const useCamera = () => {
         );
         // 필요하다면 여기에 권한 재요청 로직을 구현
       } else {
-        // 다른 오류에 대한 처리를 위해 재연결
         setTimeout(handleCameraAccess, 3000);
       }
     }
