@@ -65,10 +65,15 @@ export function useTimer(targetHour: number, targetMinute: number) {
     return () => clearInterval(timer);
   }, [targetHour, targetMinute]);
 
+  const isTimeLow = parseInt(timeLeft.seconds, 10) <= 10;
+  const isNotDueTime = parseInt(timeLeft.hours) >= 2;
+
   return {
     timeLeft,
     dateString,
     timeString,
     amPm,
+    isTimeLow,
+    isNotDueTime,
   };
 }

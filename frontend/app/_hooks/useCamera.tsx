@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { getCapturedTime } from "../_util/getTime";
 import { drawImage } from "../_util/drawImage";
 import { useAppSelector } from "../_store/store";
+import { useTimer } from "./useTimer";
 
 export const useCamera = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -12,8 +13,12 @@ export const useCamera = () => {
   const [cameraType, setCameraType] = useState("environment");
   const [imageSrc, setImageSrc] = useState("");
   const { memberName } = useAppSelector(state => state.user);
+  const { isNotDueTime } = useTimer(7, 0);
 
   const handleCapture = () => {
+    if (!isNotDueTime) {
+      return;
+    }
     const imageDataUrl = drawImage(videoRef, canvasRef);
     const data = { memberName, time: getCapturedTime().currentTime };
     if (imageDataUrl) {
@@ -90,7 +95,6 @@ export const useCamera = () => {
       if (videoRef.current) {
         videoRef.current.removeEventListener("loadeddata", handleCameraLoad);
       }
-
       if (streamRef.current) {
         streamRef.current.getTracks().forEach(track => track.stop());
       }

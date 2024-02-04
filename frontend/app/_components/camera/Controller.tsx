@@ -1,5 +1,6 @@
 import IconButton from "@/app/_components/common/IconButton";
 import { AttendanceMessage } from "./AttendanceMessage";
+import { useTimer } from "@/app/_hooks/useTimer";
 
 interface Props {
   isCaptured: boolean;
@@ -19,7 +20,7 @@ function Controller({
   isCameraReady,
 }: Props) {
   return (
-    <div className="flex flex-1 flex-col justify-center gap-10">
+    <div className="flex flex-1 flex-col justify-center items-center gap-10">
       <AttendanceMessage isCaptured={isCaptured} />
       <div className="flex items-center gap-10 h-36">
         <div id="something-new" style={{ width: 35, height: 35 }} />

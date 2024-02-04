@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes } from "react";
 import * as Icons from "@/app/_asset/icons/iconIndex";
 import Icon from "./Icon";
+import { colors } from "@/app/design/colors";
 
 interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   name: keyof typeof Icons;
@@ -11,7 +12,7 @@ interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export default function IconButton({
   name,
   size = 24,
-  color = "#666666",
+  color = colors["gray-600"],
   className = "",
   ...rest
 }: IconButtonProps) {
