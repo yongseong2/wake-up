@@ -8,6 +8,7 @@ export const useCamera = () => {
   const [isCaptured, setCaptured] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [cameraType, setCameraType] = useState("user");
+  const [imageSrc, setImageSrc] = useState("");
 
   const handleCapture = () => {
     if (videoRef.current && canvasRef.current) {
@@ -25,6 +26,7 @@ export const useCamera = () => {
         const { dateString, timeString } = getCapturedTime();
         context.fillText(`${dateString + " " + timeString}`, 10, height - 10);
         console.log(canvasRef.current.toDataURL());
+        setImageSrc(canvasRef.current.toDataURL());
         setCaptured(true);
       }
     }
@@ -117,5 +119,6 @@ export const useCamera = () => {
     handleRetake,
     handleDownload,
     toggleCamera,
+    imageSrc,
   };
 };
