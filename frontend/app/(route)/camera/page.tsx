@@ -15,6 +15,7 @@ export default function Camera() {
     handleDownload,
     toggleCamera,
     imageSrc,
+    kakaoImageSrc,
   } = useCamera();
 
   return (
@@ -32,6 +33,7 @@ export default function Camera() {
         handleDownload={handleDownload}
         toggleCamera={toggleCamera}
         isCameraReady={isCameraReady}
+        kakaoImageSrc={kakaoImageSrc}
       />
     </Wrapper>
   );

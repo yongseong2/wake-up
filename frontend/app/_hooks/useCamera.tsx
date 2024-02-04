@@ -12,20 +12,20 @@ export const useCamera = () => {
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [cameraType, setCameraType] = useState("environment");
   const [imageSrc, setImageSrc] = useState("");
+  const [kakaoImageSrc, setKakaoImageSrc] = useState("");
   const { memberName } = useAppSelector(state => state.user);
   const { isNotDueTime } = useTimer(7, 0);
 
-  const handleCapture = () => {
+  const handleCapture = async () => {
     if (!isNotDueTime) {
       return;
     }
-    const imageDataUrl = drawImage(videoRef, canvasRef);
+    const { file, url } = await drawImage(videoRef, canvasRef);
     const data = { memberName, time: getCapturedTime().currentTime };
-    if (imageDataUrl) {
-      setImageSrc(imageDataUrl);
+    if (url) {
+      setImageSrc(url);
       setCaptured(true);
-      console.log(imageDataUrl);
-      console.log(data);
+      kakaoUploadImage(file);
     }
   };
 
@@ -84,6 +84,25 @@ export const useCamera = () => {
     }
   };
 
+  const kakaoUploadImage = (file: File | null) => {
+    const kakao = window.Kakao;
+    if (!file) {
+      return;
+    }
+    if (kakao && !kakao.isInitialized()) {
+      kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
+    }
+    kakao.Share.uploadImage({
+      file: [file],
+    })
+      .then((res: any) => {
+        setKakaoImageSrc(res.infos.original.url);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     handleCameraAccess();
 
@@ -115,5 +134,6 @@ export const useCamera = () => {
     handleDownload,
     toggleCamera,
     imageSrc,
+    kakaoImageSrc,
   };
 };

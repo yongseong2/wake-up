@@ -9,6 +9,7 @@ import Profile from "@/app/_asset/icons/Profile.svg";
 import Check from "@/app/_asset/icons/Check.svg";
 import Block from "@/app/_asset/icons/Block.svg";
 import Cancel from "@/app/_asset/icons/Cancel.svg";
+import Share from "@/app/_asset/icons/Share.svg";
 
 export {
   Camera,
@@ -22,4 +23,5 @@ export {
   Check,
   Block,
   Cancel,
+  Share,
 };
