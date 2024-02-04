@@ -11,7 +11,9 @@ const KakaoShareButton = ({ kakaoImageSrc }: Props) => {
     if (window.Kakao && !window.Kakao.isInitialized()) {
       window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
     }
-    window.Kakao.Share.sendDefault(kakaoShare(kakaoImageSrc));
+    if (kakaoImageSrc) {
+      window.Kakao.Share.sendDefault(kakaoShare(kakaoImageSrc));
+    }
   };
 
   return <IconButton size={35} name="Share" onClick={share} />;
