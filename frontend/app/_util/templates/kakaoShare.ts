@@ -5,8 +5,8 @@ export function kakaoShare(kakaoImageSrc: string) {
       title: "오늘의 출석",
       imageUrl: kakaoImageSrc,
       link: {
-        mobileWebUrl: "https://wake-up-morning.vercel.app",
-        webUrl: "https://wake-up-morning.vercel.app",
+        mobileWebUrl: kakaoImageSrc,
+        webUrl: kakaoImageSrc,
       },
     },
     itemContent: {
