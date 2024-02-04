@@ -34,9 +34,13 @@ export function TopNavBar({ path, topNavSpace }: Props) {
           WAKE UP
         </div>
       )}
-      <div className="font-bold">{path && pathToTitle[path]}</div>
-
-      <IconButton name="Logout" onClick={handleLogout} />
+      {path && pathToTitle[path] && (
+        <>
+          <IconButton name="Back" size={20} onClick={() => router.back()} />
+          <div className="font-bold">{path && pathToTitle[path]}</div>
+          <IconButton name="Logout" onClick={handleLogout} />
+        </>
+      )}
     </div>
   );
 }

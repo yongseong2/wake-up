@@ -1,6 +1,7 @@
-export const getCapturedTime = () => {
+export function getCapturedTime() {
   const currentTime = new Date();
   const dateString = currentTime.toLocaleDateString("ko-KR", {
+    year: "numeric",
     month: "long",
     day: "numeric",
   });
@@ -11,4 +12,9 @@ export const getCapturedTime = () => {
     second: "2-digit",
   });
   return { dateString, timeString };
-};
+}
+
+export function getCurrentTime() {
+  const currentTime = new Date();
+  return currentTime;
+}

@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from "react";
-import { getCapturedTime } from "../_util/getCapturedTime";
+import { getCapturedTime, getCurrentTime } from "../_util/getTime";
+import { drawImage } from "../_util/drawImage";
+import { useAppSelector } from "../_store/store";
 
 export const useCamera = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -9,26 +11,16 @@ export const useCamera = () => {
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [cameraType, setCameraType] = useState("environment");
   const [imageSrc, setImageSrc] = useState("");
+  const { memberName } = useAppSelector(state => state.user);
+  const data = { memberName, time: getCurrentTime() };
 
   const handleCapture = () => {
-    if (videoRef.current && canvasRef.current) {
-      const context = canvasRef.current.getContext("2d");
-      if (context) {
-        const width = videoRef.current.videoWidth;
-        const height = videoRef.current.videoHeight;
-        canvasRef.current.width = width;
-        canvasRef.current.height = height;
-        context.drawImage(videoRef.current, 0, 0, width, height);
-        context.font = "30px Arial";
-        context.fillStyle = "white";
-        context.textAlign = "left";
-        context.textBaseline = "bottom";
-        const { dateString, timeString } = getCapturedTime();
-        context.fillText(`${dateString + " " + timeString}`, 10, height - 10);
-        console.log(canvasRef.current.toDataURL());
-        setImageSrc(canvasRef.current.toDataURL());
-        setCaptured(true);
-      }
+    const imageDataUrl = drawImage(videoRef, canvasRef);
+    if (imageDataUrl) {
+      setImageSrc(imageDataUrl);
+      setCaptured(true);
+      console.log(imageDataUrl);
+      console.log(data);
     }
   };
 
