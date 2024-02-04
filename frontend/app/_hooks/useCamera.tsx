@@ -17,7 +17,7 @@ export const useCamera = () => {
   const { isNotDueTime } = useTimer(7, 0);
 
   const handleCapture = async () => {
-    if (isNotDueTime) {
+    if (!isNotDueTime) {
       return;
     }
     const { file, url } = await drawImage(videoRef, canvasRef);
