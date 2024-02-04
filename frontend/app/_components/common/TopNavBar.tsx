@@ -34,7 +34,7 @@ export function TopNavBar({ path, topNavSpace }: Props) {
           >
             WAKE UP
           </div>
-          <IconButton name="Menu" size={30} onClick={handleLogout} />
+          <IconButton name="Logout" size={30} onClick={handleLogout} />
         </>
       )}
       {path && pathToTitle[path] && (

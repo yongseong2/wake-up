@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { getCapturedTime } from "../_util/getTime";
 import { drawImage } from "../_util/drawImage";
 import { useAppSelector } from "../_store/store";
-import { useTimer } from "./useTimer";
+// import { useTimer } from "./useTimer";
 
 export const useCamera = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -15,12 +15,9 @@ export const useCamera = () => {
   const [imageSrc, setImageSrc] = useState("");
   const [kakaoImageSrc, setKakaoImageSrc] = useState("");
   const { memberName } = useAppSelector(state => state.user);
-  const { isNotDueTime } = useTimer(7, 0);
+  // const { isNotDueTime } = useTimer(7, 0);
 
   const handleCapture = async () => {
-    if (!isNotDueTime) {
-      return;
-    }
     const { dateString, timeString } = getCapturedTime();
     const { file, url } = await drawImage(
       videoRef,
