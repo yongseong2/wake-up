@@ -8,6 +8,7 @@ export const useCamera = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  const [capturedTime, setCapturedTime] = useState("");
   const [isCaptured, setCaptured] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const [cameraType, setCameraType] = useState("environment");
@@ -20,8 +21,15 @@ export const useCamera = () => {
     if (!isNotDueTime) {
       return;
     }
-    const { file, url } = await drawImage(videoRef, canvasRef);
+    const { dateString, timeString } = getCapturedTime();
+    const { file, url } = await drawImage(
+      videoRef,
+      canvasRef,
+      dateString,
+      timeString,
+    );
     const data = { memberName, time: getCapturedTime().currentTime };
+    setCapturedTime(`${dateString + " " + timeString}`);
     if (url) {
       setImageSrc(url);
       setCaptured(true);
@@ -135,5 +143,6 @@ export const useCamera = () => {
     toggleCamera,
     imageSrc,
     kakaoImageSrc,
+    capturedTime,
   };
 };

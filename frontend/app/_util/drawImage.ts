@@ -3,6 +3,8 @@ import { getCapturedTime } from "./getTime";
 export async function drawImage(
   videoRef: React.RefObject<HTMLVideoElement>,
   canvasRef: React.RefObject<HTMLCanvasElement>,
+  dateString: string,
+  timeString: string,
 ): Promise<{ file: File | null; url: string | null }> {
   if (videoRef.current && canvasRef.current) {
     const context = canvasRef.current.getContext("2d");
@@ -16,7 +18,7 @@ export async function drawImage(
       context.fillStyle = "white";
       context.textAlign = "left";
       context.textBaseline = "bottom";
-      const { dateString, timeString } = getCapturedTime();
+
       context.fillText(`${dateString + " " + timeString}`, 10, height - 10);
 
       const blob = await new Promise<Blob | null>(resolve =>

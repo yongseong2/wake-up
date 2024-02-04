@@ -5,6 +5,7 @@ import KakaoShareButton from "../common/KaKaoShareButton";
 interface Props {
   isCaptured: boolean;
   isCameraReady: boolean;
+  capturedTime: string;
   kakaoImageSrc: string;
   handleCapture: () => void;
   handleRetake: () => void;
@@ -15,6 +16,7 @@ interface Props {
 function Controller({
   isCaptured,
   isCameraReady,
+  capturedTime,
   kakaoImageSrc,
   handleCapture,
   handleRetake,
@@ -41,7 +43,10 @@ function Controller({
           </>
         ) : (
           <>
-            <KakaoShareButton kakaoImageSrc={kakaoImageSrc} />
+            <KakaoShareButton
+              kakaoImageSrc={kakaoImageSrc}
+              capturedTime={capturedTime}
+            />
             <IconButton
               name="Download"
               size={50}
