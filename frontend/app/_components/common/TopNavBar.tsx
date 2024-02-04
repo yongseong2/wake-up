@@ -27,18 +27,27 @@ export function TopNavBar({ path, topNavSpace }: Props) {
       style={{ height: topNavSpace }}
     >
       {!(path && pathToTitle[path]) && (
-        <div
-          className="text-gold font-bold"
-          onClick={() => router.push("/main")}
-        >
-          WAKE UP
-        </div>
+        <>
+          <div
+            className="text-gold font-bold"
+            onClick={() => router.push("/main")}
+          >
+            WAKE UP
+          </div>
+          <IconButton name="Menu" size={30} onClick={handleLogout} />
+        </>
       )}
       {path && pathToTitle[path] && (
         <>
-          <IconButton name="Back" size={20} onClick={() => router.back()} />
-          <div className="font-bold">{path && pathToTitle[path]}</div>
-          <IconButton name="Logout" onClick={handleLogout} />
+          <IconButton
+            className="fixed"
+            name="Back"
+            size={20}
+            onClick={() => router.back()}
+          />
+          <div className="font-bold flex-grow text-center">
+            {pathToTitle[path]}
+          </div>
         </>
       )}
     </div>

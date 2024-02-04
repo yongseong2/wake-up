@@ -27,6 +27,12 @@ const config: Config = {
       fontSize: {
         xxs: "10px",
       },
+      maxHeight: {
+        "half-screen": "50vh",
+      },
+      spacing: {
+        "5p": "5%",
+      },
     },
   },
   plugins: [],

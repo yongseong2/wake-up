@@ -1,4 +1,4 @@
-import { colors } from "@/app/design/colors";
+import { colors } from "@/app/_design/colors";
 import Icon from "../common/Icon";
 import DueTime from "../main/DueTime";
 
