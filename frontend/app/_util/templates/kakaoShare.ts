@@ -1,8 +1,12 @@
-export function kakaoShare(kakaoImageSrc: string) {
+export function kakaoShare(
+  kakaoImageSrc: string,
+  capturedTime: string,
+  memberName: string,
+) {
   return {
     objectType: "feed",
     content: {
-      title: "오늘의 출석",
+      title: `${memberName}님이 ${capturedTime}에 출석하셨어요`,
       imageUrl: kakaoImageSrc,
       link: {
         mobileWebUrl: kakaoImageSrc,
