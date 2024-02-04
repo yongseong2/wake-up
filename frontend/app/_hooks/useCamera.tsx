@@ -1,5 +1,8 @@
 import { useRef, useState, useEffect } from "react";
-import { getCapturedTime } from "../_util/getCapturedTime";
+import { getCapturedTime } from "../_util/getTime";
+import { drawImage } from "../_util/drawImage";
+import { useAppSelector } from "../_store/store";
+import { useTimer } from "./useTimer";
 
 export const useCamera = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -7,28 +10,22 @@ export const useCamera = () => {
   const streamRef = useRef<MediaStream | null>(null);
   const [isCaptured, setCaptured] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
-  const [cameraType, setCameraType] = useState("user");
+  const [cameraType, setCameraType] = useState("environment");
   const [imageSrc, setImageSrc] = useState("");
+  const [kakaoImageSrc, setKakaoImageSrc] = useState("");
+  const { memberName } = useAppSelector(state => state.user);
+  const { isNotDueTime } = useTimer(7, 0);
 
-  const handleCapture = () => {
-    if (videoRef.current && canvasRef.current) {
-      const context = canvasRef.current.getContext("2d");
-      if (context) {
-        const width = videoRef.current.videoWidth;
-        const height = videoRef.current.videoHeight;
-        canvasRef.current.width = width;
-        canvasRef.current.height = height;
-        context.drawImage(videoRef.current, 0, 0, width, height);
-        context.font = "30px Arial";
-        context.fillStyle = "white";
-        context.textAlign = "left";
-        context.textBaseline = "bottom";
-        const { dateString, timeString } = getCapturedTime();
-        context.fillText(`${dateString + " " + timeString}`, 10, height - 10);
-        console.log(canvasRef.current.toDataURL());
-        setImageSrc(canvasRef.current.toDataURL());
-        setCaptured(true);
-      }
+  const handleCapture = async () => {
+    if (isNotDueTime) {
+      return;
+    }
+    const { file, url } = await drawImage(videoRef, canvasRef);
+    const data = { memberName, time: getCapturedTime().currentTime };
+    if (url) {
+      setImageSrc(url);
+      setCaptured(true);
+      kakaoUploadImage(file);
     }
   };
 
@@ -50,7 +47,6 @@ export const useCamera = () => {
         );
         // 필요하다면 여기에 권한 재요청 로직을 구현
       } else {
-        // 다른 오류에 대한 처리를 위해 재연결
         setTimeout(handleCameraAccess, 3000);
       }
     }
@@ -88,6 +84,25 @@ export const useCamera = () => {
     }
   };
 
+  const kakaoUploadImage = (file: File | null) => {
+    const kakao = window.Kakao;
+    if (!file) {
+      return;
+    }
+    if (kakao && !kakao.isInitialized()) {
+      kakao.init(process.env.NEXT_PUBLIC_KAKAO_KEY);
+    }
+    kakao.Share.uploadImage({
+      file: [file],
+    })
+      .then((res: any) => {
+        setKakaoImageSrc(res.infos.original.url);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     handleCameraAccess();
 
@@ -99,7 +114,6 @@ export const useCamera = () => {
       if (videoRef.current) {
         videoRef.current.removeEventListener("loadeddata", handleCameraLoad);
       }
-
       if (streamRef.current) {
         streamRef.current.getTracks().forEach(track => track.stop());
       }
@@ -107,7 +121,7 @@ export const useCamera = () => {
   }, [cameraType]);
 
   const toggleCamera = () => {
-    setCameraType(cameraType === "user" ? "environment" : "user");
+    setCameraType(cameraType === "environment" ? "user" : "environment");
   };
 
   return {
@@ -120,5 +134,6 @@ export const useCamera = () => {
     handleDownload,
     toggleCamera,
     imageSrc,
+    kakaoImageSrc,
   };
 };

@@ -6,5 +6,22 @@ import Download from "@/app/_asset/icons/Download.svg";
 import Change from "@/app/_asset/icons/Change.svg";
 import Menu from "@/app/_asset/icons/Menu.svg";
 import Profile from "@/app/_asset/icons/Profile.svg";
+import Check from "@/app/_asset/icons/Check.svg";
+import Block from "@/app/_asset/icons/Block.svg";
+import Cancel from "@/app/_asset/icons/Cancel.svg";
+import Share from "@/app/_asset/icons/Share.svg";
 
-export { Camera, Refresh, Back, Logout, Download, Change, Menu, Profile };
+export {
+  Camera,
+  Refresh,
+  Back,
+  Logout,
+  Download,
+  Change,
+  Menu,
+  Profile,
+  Check,
+  Block,
+  Cancel,
+  Share,
+};

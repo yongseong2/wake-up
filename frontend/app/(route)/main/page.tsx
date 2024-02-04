@@ -10,8 +10,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Main() {
-  const { time } = useTimer(7, 0);
-  const { memberName, isLogined } = useAppSelector(state => state.user);
+  const { isLogined } = useAppSelector(state => state.user);
 
   const router = useRouter();
 
@@ -21,22 +20,11 @@ export default function Main() {
     }
   }, [isLogined, router]);
 
-  // 차후 서버에 보낼 데이터
-  const data = { time, memberName };
-
   return (
     <Wrapper>
       <CurrentTime />
       <PenaltyList />
       <DueTime />
-      <Button
-        color="gold"
-        onClick={() => {
-          console.log(data);
-        }}
-      >
-        출석하기
-      </Button>
     </Wrapper>
   );
 }

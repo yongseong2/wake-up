@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 export function useTimer(targetHour: number, targetMinute: number) {
-  const [time, setTime] = useState(new Date());
   const [timeLeft, setTimeLeft] = useState({
     hours: "00",
     minutes: "00",
@@ -14,8 +13,6 @@ export function useTimer(targetHour: number, targetMinute: number) {
   useEffect(() => {
     const updateTime = () => {
       const currentTime = new Date();
-      setTime(currentTime);
-
       // 현재 날짜 및 시간 업데이트
       setDateString(
         currentTime.toLocaleDateString("ko-KR", {
@@ -68,11 +65,15 @@ export function useTimer(targetHour: number, targetMinute: number) {
     return () => clearInterval(timer);
   }, [targetHour, targetMinute]);
 
+  const isTimeLow = parseInt(timeLeft.seconds, 10) <= 10;
+  const isNotDueTime = parseInt(timeLeft.hours) >= 2;
+
   return {
-    time,
     timeLeft,
     dateString,
     timeString,
     amPm,
+    isTimeLow,
+    isNotDueTime,
   };
 }
