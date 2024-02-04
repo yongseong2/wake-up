@@ -1,6 +1,5 @@
 import IconButton from "@/app/_components/common/IconButton";
 import { AttendanceMessage } from "./AttendanceMessage";
-import { useTimer } from "@/app/_hooks/useTimer";
 import KakaoShareButton from "../common/KaKaoShareButton";
 
 interface Props {
@@ -22,6 +21,7 @@ function Controller({
   handleDownload,
   toggleCamera,
 }: Props) {
+  console.log(kakaoImageSrc);
   return (
     <div className="flex flex-1 flex-col justify-center items-center gap-10">
       <AttendanceMessage isCaptured={isCaptured} />
