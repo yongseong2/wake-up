@@ -21,9 +21,8 @@ function Controller({
   handleDownload,
   toggleCamera,
 }: Props) {
-  console.log(kakaoImageSrc);
   return (
-    <div className="flex flex-1 flex-col justify-center items-center gap-10">
+    <div className="fixed bottom-5p">
       <AttendanceMessage isCaptured={isCaptured} />
       <div className="flex items-center gap-10 h-36">
         {!isCaptured ? (

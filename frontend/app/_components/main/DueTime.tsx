@@ -1,4 +1,4 @@
-import { colors } from "@/app/design/colors";
+import { colors } from "@/app/_design/colors";
 import { useTimer } from "../../_hooks/useTimer";
 import Icon from "../common/Icon";
 

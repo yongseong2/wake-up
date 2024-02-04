@@ -12,29 +12,20 @@ const Lens = ({ isCaptured, videoRef, canvasRef, imageSrc }: Props) => {
   return (
     <div>
       {!isCaptured && (
-        <video
-          style={{ width: "100vh", maxHeight: "50vh" }}
-          ref={videoRef}
-          autoPlay
-        />
+        <div className="w-full max-h-half-screen">
+          <video className="w-full max-h-half-screen" ref={videoRef} autoPlay />
+        </div>
       )}
       {isCaptured && (
         <Image
           src={imageSrc}
           width={0}
           height={0}
-          className="w-full"
-          style={{ maxHeight: "50vh" }}
+          className="w-full max-h-half-screen"
           alt="Captured"
         />
       )}
-      <canvas
-        ref={canvasRef}
-        className="w-full max-h-96"
-        style={{
-          display: "none",
-        }}
-      />
+      <canvas ref={canvasRef} className="hidden" />
     </div>
   );
 };
