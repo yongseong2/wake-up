@@ -26,8 +26,8 @@ export default function Camera() {
       <div className="max-h-96">
         {!isCaptured && (
           <video
-            className="w-full"
-            style={{ maxHeight: "50vh" }}
+            // className="w-full"
+            style={{ width: "100vh", maxHeight: "50vh" }}
             ref={videoRef}
             autoPlay
           />

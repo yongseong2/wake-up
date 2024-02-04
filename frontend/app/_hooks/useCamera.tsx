@@ -7,7 +7,7 @@ export const useCamera = () => {
   const streamRef = useRef<MediaStream | null>(null);
   const [isCaptured, setCaptured] = useState(false);
   const [isCameraReady, setIsCameraReady] = useState(false);
-  const [cameraType, setCameraType] = useState("user");
+  const [cameraType, setCameraType] = useState("environment");
   const [imageSrc, setImageSrc] = useState("");
 
   const handleCapture = () => {
@@ -107,7 +107,7 @@ export const useCamera = () => {
   }, [cameraType]);
 
   const toggleCamera = () => {
-    setCameraType(cameraType === "user" ? "environment" : "user");
+    setCameraType(cameraType === "environment" ? "user" : "environment");
   };
 
   return {
